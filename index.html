@@ -1,0 +1,54 @@
+<html>
+  <head>
+    <title>Teuer</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" type="text/css" href="css/base.css">
+    <link rel="stylesheet" type="text/css" href="css/headers.css">
+    <link rel="stylesheet" type="text/css" href="css/buttons.css">
+    <link rel="stylesheet" type="text/css" href="css/toolbars.css">
+    <link rel="stylesheet" href="css/main.css" />
+  </head>
+  <body>
+
+  <section role="region">
+    <header>
+      <!-- Icon that will indicate whether you are online or offline - enabled if you are using offline/appcache (see above) -->
+      <div id="online-status" title="Online"></div>
+      <menu type="toolbar">
+        <button id="install"><span class="icon icon-add">add</span></button>
+      </menu>
+      <h1 data-l10n-id="app-heading">
+        Teuer
+      </h1>
+      <span class="expense-total">
+        <span class="expense-value">0</span>
+        <span class="expense-currency">RON</span>
+      </span>
+    </header>
+  </section>
+
+  <div class="container">
+    <form id="expense-form" action="">
+      <input type="number" name="expense-value" id="expense-value">
+      <button type="submit" id="income-add" class="expense-button--income">Add income</button>
+      <button type="submit" id="expense-add" class="expense-button--expense">Add expense</button>
+    </form>
+  </div>
+  <script type="text/template" id="expenseTemplate">
+    <strong><%= value %></strong>
+    <input type="number" value="<%= value %>" required>
+    <%= currency %>
+    <button class="done">done</button>
+    <button class="delete">delete</button>
+    <small class="timeago" title="<%= date %>"><%= date %></small>
+  </script>
+
+  <script src="js/underscore-min.js"></script>
+  <script src="js/jquery-2.1.0.min.js"></script>
+  <script src="js/backbone-min.js"></script>
+  <script src="js/backbone.localStorage-min.js"></script>
+  <script src="js/jquery.timeago.js"></script>
+  <script src="js/main.js"></script>
+  </body>
+</html>
