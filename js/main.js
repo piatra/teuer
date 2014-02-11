@@ -9,8 +9,13 @@
   window.App = {
     Models: {},
     Views: {},
-    Collections: {}
+    Collections: {},
+    options: {
+      currency: 'RON'
+    }
   };
+
+  Backbone.pubSub = _.extend({}, Backbone.Events);
 
   App.Models.Expense = Backbone.Model.extend({
     defaults: {
@@ -18,7 +23,7 @@
       comment: '',
       className: 'positive-expense',
       date: (new Date()).toISOString(),
-      currency: 'RON'
+      currency: App.options.currency
     },
 
     validate: function (attrs) {
@@ -42,9 +47,15 @@
 
     el: $('.expenses-list'),
 
+    refreshList: function() {
+      this.$el.empty();
+      this.render();
+    },
+
     initialize: function() {
       this.collection.on('add', this.addOne, this);
       this.collection.on('remove', this.updateTotal, this);
+      Backbone.pubSub.on('currencyUpdate', this.refreshList, this);
     },
 
     render: function() {
@@ -84,6 +95,25 @@
     //initialize: function() {
       //this.dropboxDatastore.syncCollection(this);
     //}
+  });
+
+  App.Views.SettingsForm = Backbone.View.extend({
+    el: $('#currency-selector'),
+
+    events: {
+      'click button': 'currencyUpdate'
+    },
+
+    currencyUpdate: function(e) {
+      console.log('currency update clicked');
+      App.options.currency = $('input', this.$el).val();
+      this.collection.each(this.updateItem, this);
+      Backbone.pubSub.trigger('currencyUpdate');
+    },
+
+    updateItem: function(item) {
+      item.set('currency', App.options.currency);
+    }
   });
 
   App.Views.ExpenseForm = Backbone.View.extend({
@@ -186,11 +216,12 @@
   //});
 
   window.expenseForm = new App.Views.ExpenseForm({ collection: expenseCollection });
+  var settingsForm = new App.Views.SettingsForm({ collection: expenseCollection });
 
   //$('body').append(expenses.render().el);
   $('.js-handler--show-sidemenu').on('click', toggleSidemenu);
   $('.js-handler--change-currency').on('click', changeCurrency);
-  var expenses = new App.Views.Expenses({ collection: expenseCollection });
+  window.expenses = new App.Views.Expenses({ collection: expenseCollection });
 
   function toggleSidemenu () {
     $('.container').toggleClass('slide-right--half');
