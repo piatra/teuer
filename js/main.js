@@ -1,6 +1,11 @@
 (function() {
   'use strict';
 
+  var client = new Dropbox.Client({key: 'gzlqmsuqsyk0dvt'});
+  client.authenticate({ interactive: false });
+  if (!client.isAuthenticated()) client.authenticate();
+  Backbone.DropboxDatastore.client = client;
+
   window.App = {
     Models: {},
     Views: {},
@@ -53,7 +58,6 @@
     updateTotal: function() {
       this.expenseTotal = 0;
       this.collection.each(function(expense) {
-        console.log(expense.get('value'));
         if (expense.get('className') == 'positive-expense') {
           this.expenseTotal += parseInt(expense.get('value'), 10);
         } else {
@@ -75,7 +79,14 @@
 
   App.Collections.Expenses = Backbone.Collection.extend({
     model: App.Models.Expense,
-    localStorage: new Backbone.LocalStorage("teuer")
+
+    //localStorage: new Backbone.LocalStorage("teuer"),
+
+    dropboxDatastore: new Backbone.DropboxDatastore('teuer'),
+
+    initialize: function() {
+      this.dropboxDatastore.syncCollection(this);
+    }
   });
 
   App.Views.ExpenseForm = Backbone.View.extend({
@@ -158,6 +169,18 @@
 
   window.expenseCollection = new App.Collections.Expenses();
   expenseCollection.fetch();
+
+  expenseCollection.dropboxDatastore.on('change:status', function(status, dropboxDatastore){
+    console.log('status changed');
+  });
+
+  $(window).bind('beforeunload', function () {
+    var currentStatus = expenseCollection.dropboxDatastore.getStatus();
+    if (currentStatus === 'uploading') {
+      console.log('uploading');
+      return 'You have pending changes that haven\'t been synchronized to the server.';
+    }
+  });
 
   window.expenseForm = new App.Views.ExpenseForm({ collection: expenseCollection });
 
