@@ -1,10 +1,10 @@
 (function() {
   'use strict';
 
-  //var client = new Dropbox.Client({key: 'gzlqmsuqsyk0dvt'});
-  //client.authenticate({ interactive: false });
-  //if (!client.isAuthenticated()) client.authenticate();
-  //Backbone.DropboxDatastore.client = client;
+  var client = new Dropbox.Client({key: 'gzlqmsuqsyk0dvt'});
+  client.authenticate({ interactive: false });
+  if (!client.isAuthenticated()) client.authenticate();
+  Backbone.DropboxDatastore.client = client;
 
   window.App = {
     Models: {},
@@ -89,13 +89,11 @@
   App.Collections.Expenses = Backbone.Collection.extend({
     model: App.Models.Expense,
 
-    //localStorage: new Backbone.LocalStorage("teuer"),
+    dropboxDatastore: new Backbone.DropboxDatastore('teuer'),
 
-    //dropboxDatastore: new Backbone.DropboxDatastore('teuer'),
-
-    //initialize: function() {
-      //this.dropboxDatastore.syncCollection(this);
-    //}
+    initialize: function() {
+      this.dropboxDatastore.syncCollection(this);
+    }
   });
 
   App.Views.SettingsForm = Backbone.View.extend({
@@ -193,19 +191,19 @@
   });
 
   window.expenseCollection = new App.Collections.Expenses();
-  //expenseCollection.fetch();
+  expenseCollection.fetch();
 
-  //expenseCollection.dropboxDatastore.on('change:status', function(status, dropboxDatastore){
-    //console.log('status changed');
-  //});
+  expenseCollection.dropboxDatastore.on('change:status', function(status, dropboxDatastore){
+    console.log('status changed');
+  });
 
-  //$(window).bind('beforeunload', function () {
-    //var currentStatus = expenseCollection.dropboxDatastore.getStatus();
-    //if (currentStatus === 'uploading') {
-      //console.log('uploading');
-      //return 'You have pending changes that haven\'t been synchronized to the server.';
-    //}
-  //});
+  $(window).bind('beforeunload', function () {
+    var currentStatus = expenseCollection.dropboxDatastore.getStatus();
+    if (currentStatus === 'uploading') {
+      console.log('uploading');
+      return 'You have pending changes that haven\'t been synchronized to the server.';
+    }
+  });
 
   window.expenseForm = new App.Views.ExpenseForm({ collection: expenseCollection });
   var settingsForm = new App.Views.SettingsForm({ collection: expenseCollection });
