@@ -30,60 +30,13 @@
     }
   },
   "locales": {
-    "ar": {
-      "name": "التطبيق المساعد لبدء التطوير لـFirefox OS",
-      "description": "تطبيق يُساعدك على بدء التطوير لنظام Firefox مُرفق بأمثلة عن حالات الاستخدام"
-    },
-    "de": {
-      "name": "Firefox OS Boilerplate App",
-      "description": "Boilerplate Firefox OS App mit Beispiel Anwendungsfälle, um loszulegen"
-    },
-    "el": {
-      "name": "Firefox OS Boilerplate Εφαρμογή",
-      "description": "Boilerplate Firefox OS εφαρμογή με παραδείγματα χρήσης για να ξεκινήσετε"
-    },
     "en": {
-      "name": "Firefox OS Boilerplate App",
-      "description": "Boilerplate Firefox OS app with example use cases to get started"
+      "name": "Such Teuer",
+      "description": "An expense tracking application"
     },
     "en-US": {
-      "name": "Firefox OS Boilerplate App",
-      "description": "Boilerplate Firefox OS app with example use cases to get started"
-    },
-    "es": {
-      "name": "App base para Firefox OS",
-      "description": "App base para Firefox OS con ejemplos de usos para empezar"
-    },
-    "fr": {
-      "name": "Modèle d’application pour Firefox OS",
-      "description": "Modèle d’application pour Firefox OS avec des exemples de cas d’utilisation pour bien commencer"
-    },
-    "hi": {
-      "name": "फायर फॉक्स OS BoilerPlate App"
-    },
-    "id": {
-      "name": "Firefox OS Boilerplate Aplikasi",
-      "description": "Aplikasi boilerplate Firefox OS dengan contoh kasus penggunaan untuk memulai"
-    },
-    "it_IT": {
-      "name": "Firefox OS Boilerplate App",
-      "description": "Boilerplate per FirefoxOS con esempi e casi d'uso per iniziare lo sviluppo"
-    },
-    "ja": {
-      "name": "Firefox OSボイラプレートアプリ",
-      "description": "いくつかの用例を含めた、Firefox OS用アプリの入門用見本"
-    },
-    "nl": {
-      "name": "Firefox OS Boilerplate App",
-      "description": "Boilerplate Firefox OS app met voorbeeld use cases om te beginnen"
-    },
-    "pt_BR": {
-      "name": "Firefox OS Boilerplate App",
-      "description": "Boilerplate Firefox OS app com exemplos de uso para começar"
-    },
-    "tr": {
-      "name": "Firefox OS Boilerplate Uygulaması",
-      "description": "Başlamak için örnek kullanım durumları ile Boilerplate Firefox OS uygulaması"
+      "name": "Such Teuer",
+      "description": "An expense tracking application"
     }
   }
 }
