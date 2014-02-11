@@ -11,7 +11,7 @@
     Views: {},
     Collections: {},
     options: {
-      currency: 'RON'
+      currency: localStorage.getItem('currency') || 'RON'
     }
   };
 
@@ -108,6 +108,7 @@
     currencyUpdate: function(e) {
       e.preventDefault();
       App.options.currency = $('input', this.$el).val();
+      localStorage.setItem('currency', App.options.currency);
       this.collection.each(this.updateItem, this);
       Backbone.pubSub.trigger('currencyUpdate');
     },
