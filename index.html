@@ -29,16 +29,10 @@
     </header>
   </section>
 
-  <div class="sidemenu smooth-transition">
-    <ul>
-      <li class="sidemenu-item"><a href="#" class="js-handler--change-currency">Change currency</a></li>
-      <li class="sidemenu-item"><a href="#">About</a></li>
-    </ul>
-  </div>
 
   <div class="container smooth-transition" id="expense-wallet">
     <form id="expense-form" action="">
-      <input type="number" name="expense-value" class="input--large" id="expense-value">
+      <input type="number" name="expense-value" class="input--large" id="expense-value" required>
       <textarea name="expense-description" id= rows="8" cols="40" class="full-width" placeholder="Optional expense description"></textarea>
       <button type="submit" id="income-add" class="expense-button--income button--half-wide">Add income</button>
       <button type="submit" id="expense-add" class="expense-button--expense button--half-wide">Add expense</button>
@@ -52,6 +46,14 @@
       <button type="submit" class="button--full-wide">Set currency</button>
     </form>
   </div>
+
+  <div class="sidemenu smooth-transition">
+    <ul>
+      <li class="sidemenu-item"><a href="#" class="js-handler--change-currency">Change currency</a></li>
+      <li class="sidemenu-item"><a href="#">About</a></li>
+    </ul>
+  </div>
+
   <script type="text/template" id="expenseTemplate">
     <strong><%= value %></strong>
     <input type="number" value="<%= value %>" required>

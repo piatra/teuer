@@ -98,6 +98,7 @@
       e.preventDefault();
       var $input = $('input', this.$el);
       var value = $input.val();
+      if (!value) return;
       var comment = $('textarea', this.$el).val();
       var expense = new App.Models.Expense({
         value: value,
@@ -113,6 +114,7 @@
       e.preventDefault();
       var $input = $('input', this.$el);
       var value = $input.val();
+      if (!value) return;
       var comment = $('textarea', this.$el).val();
       var expense = new App.Models.Expense({
         value: value,
@@ -193,6 +195,10 @@
   function toggleSidemenu () {
     $('.container').toggleClass('slide-right--half');
     $('.sidemenu').toggleClass('slide-right--reset');
+    setTimeout(function () {
+      $('html').toggleClass('hidden-overflow');
+      $('body').toggleClass('hidden-overflow');
+    }, 300);
   }
 
   function changeCurrency () {
