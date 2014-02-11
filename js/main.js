@@ -106,7 +106,7 @@
     },
 
     currencyUpdate: function(e) {
-      console.log('currency update clicked');
+      e.preventDefault();
       App.options.currency = $('input', this.$el).val();
       this.collection.each(this.updateItem, this);
       Backbone.pubSub.trigger('currencyUpdate');
@@ -135,11 +135,10 @@
       var $input = $('input', this.$el);
       var value = $input.val();
       if (!value) return;
-      var comment = $('textarea', this.$el).val();
       var expense = new App.Models.Expense({
         value: value,
         className: className,
-        comment: comment,
+        comment: $('textarea', this.$el).val(),
         currency: App.options.currency
       });
       this.collection.add(expense);
