@@ -56,6 +56,11 @@ header ul {
   line-height: 4.5rem;
 }
 
+.expenses-list {
+  width: 70%;
+  margin: 0 auto;
+}
+
 .button--full-wide,
 .button--half-wide {
   width: 100%;
@@ -129,6 +134,26 @@ header ul {
     display:none;
   }
 
+.expense-item-comment {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: inline-block;
+  height: 2rem;
+  white-space: nowrap;
+  font-size: 1.5rem;
+  width: 10rem;
+}
+
+  .expense-item.editing .expense-item-comment {
+    display:block;
+    width: 100%;
+  }
+
 .hidden {
   display:none;
+}
+
+.full-width {
+  display: block;
+  width: 100%;
 }

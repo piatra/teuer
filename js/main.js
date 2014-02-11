@@ -37,13 +37,10 @@
   });
 
   App.Views.Expenses = Backbone.View.extend({
-    tagName: 'ul',
 
     expenseTotal: 0,
 
-    el: $('.container'),
-
-    className: 'expenses-list',
+    el: $('.expenses-list'),
 
     initialize: function() {
       this.collection.on('add', this.addOne, this);
@@ -101,9 +98,11 @@
       e.preventDefault();
       var $input = $('input', this.$el);
       var value = $input.val();
+      var comment = $('textarea', this.$el).val();
       var expense = new App.Models.Expense({
         value: value,
-        className: 'negative-expense'
+        className: 'negative-expense',
+        comment: comment
       });
       this.collection.add(expense);
       expense.save();
@@ -114,9 +113,11 @@
       e.preventDefault();
       var $input = $('input', this.$el);
       var value = $input.val();
+      var comment = $('textarea', this.$el).val();
       var expense = new App.Models.Expense({
         value: value,
-        className: 'positive-expense'
+        className: 'positive-expense',
+        comment: comment
       });
       this.collection.add(expense);
       expense.save();

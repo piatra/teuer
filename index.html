@@ -39,9 +39,12 @@
   <div class="container smooth-transition" id="expense-wallet">
     <form id="expense-form" action="">
       <input type="number" name="expense-value" class="input--large" id="expense-value">
+      <textarea name="expense-description" id= rows="8" cols="40" class="full-width" placeholder="Optional expense description"></textarea>
       <button type="submit" id="income-add" class="expense-button--income button--half-wide">Add income</button>
       <button type="submit" id="expense-add" class="expense-button--expense button--half-wide">Add expense</button>
     </form>
+    <ul class="expenses-list">
+    </ul>
   </div>
   <div class="container smooth-transition hidden" id="expense-settings">
     <form id="currency-selector" action="">
@@ -56,6 +59,7 @@
     <button class="done">done</button>
     <button class="delete">delete</button>
     <small class="timeago" title="<%= date %>"><%= date %></small>
+    <span class="expense-item-comment"><%= comment %></span>
   </script>
 
   <script src="js/underscore-min.js"></script>
