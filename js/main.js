@@ -1,10 +1,10 @@
 (function() {
   'use strict';
 
-  var client = new Dropbox.Client({key: 'gzlqmsuqsyk0dvt'});
-  client.authenticate({ interactive: false });
-  if (!client.isAuthenticated()) client.authenticate();
-  Backbone.DropboxDatastore.client = client;
+  //var client = new Dropbox.Client({key: 'gzlqmsuqsyk0dvt'});
+  //client.authenticate({ interactive: false });
+  //if (!client.isAuthenticated()) client.authenticate();
+  //Backbone.DropboxDatastore.client = client;
 
   window.App = {
     Models: {},
@@ -82,11 +82,11 @@
 
     //localStorage: new Backbone.LocalStorage("teuer"),
 
-    dropboxDatastore: new Backbone.DropboxDatastore('teuer'),
+    //dropboxDatastore: new Backbone.DropboxDatastore('teuer'),
 
-    initialize: function() {
-      this.dropboxDatastore.syncCollection(this);
-    }
+    //initialize: function() {
+      //this.dropboxDatastore.syncCollection(this);
+    //}
   });
 
   App.Views.ExpenseForm = Backbone.View.extend({
@@ -168,23 +168,39 @@
   });
 
   window.expenseCollection = new App.Collections.Expenses();
-  expenseCollection.fetch();
+  //expenseCollection.fetch();
 
-  expenseCollection.dropboxDatastore.on('change:status', function(status, dropboxDatastore){
-    console.log('status changed');
-  });
+  //expenseCollection.dropboxDatastore.on('change:status', function(status, dropboxDatastore){
+    //console.log('status changed');
+  //});
 
-  $(window).bind('beforeunload', function () {
-    var currentStatus = expenseCollection.dropboxDatastore.getStatus();
-    if (currentStatus === 'uploading') {
-      console.log('uploading');
-      return 'You have pending changes that haven\'t been synchronized to the server.';
-    }
-  });
+  //$(window).bind('beforeunload', function () {
+    //var currentStatus = expenseCollection.dropboxDatastore.getStatus();
+    //if (currentStatus === 'uploading') {
+      //console.log('uploading');
+      //return 'You have pending changes that haven\'t been synchronized to the server.';
+    //}
+  //});
 
   window.expenseForm = new App.Views.ExpenseForm({ collection: expenseCollection });
 
+  //$('body').append(expenses.render().el);
+  $('.js-handler--show-sidemenu').on('click', toggleSidemenu);
+  $('.js-handler--change-currency').on('click', changeCurrency);
   var expenses = new App.Views.Expenses({ collection: expenseCollection });
-  $('body').append(expenses.render().el);
+
+  function toggleSidemenu () {
+    $('.container').toggleClass('slide-right--half');
+    $('.sidemenu').toggleClass('slide-right--reset');
+  }
+
+  function changeCurrency () {
+    $('#expense-wallet').toggleClass('hidden');
+    $('#expense-settings').toggleClass('hidden');
+    toggleSidemenu();
+  }
+
+
+
 
 })();
