@@ -73,6 +73,7 @@
         }
       }, this);
       $('.expense-value').text(this.expenseTotal);
+      $('.expense-currency').text(App.options.currency);
     },
 
     addOne: function(expense) {
@@ -120,11 +121,16 @@
     el: $('#expense-form'),
 
     events: {
-      'click .expense-button--expense': 'addExpense',
-      'click .expense-button--income': 'addIncome'
+      'click button': 'addExpense'
     },
 
     addExpense: function(e) {
+      var className;
+      if ($(e.currentTarget).hasClass('expense-button--expense')) {
+        className = 'negative-expense';
+      } else {
+        className = 'positive-expense';
+      }
       e.preventDefault();
       var $input = $('input', this.$el);
       var value = $input.val();
@@ -132,29 +138,15 @@
       var comment = $('textarea', this.$el).val();
       var expense = new App.Models.Expense({
         value: value,
-        className: 'negative-expense',
-        comment: comment
+        className: className,
+        comment: comment,
+        currency: App.options.currency
       });
       this.collection.add(expense);
       expense.save();
       $input.val('');
     },
 
-    addIncome: function(e) {
-      e.preventDefault();
-      var $input = $('input', this.$el);
-      var value = $input.val();
-      if (!value) return;
-      var comment = $('textarea', this.$el).val();
-      var expense = new App.Models.Expense({
-        value: value,
-        className: 'positive-expense',
-        comment: comment
-      });
-      this.collection.add(expense);
-      expense.save();
-      $input.val('');
-    }
   });
 
   App.Views.Expense = Backbone.View.extend({
@@ -221,6 +213,8 @@
   //$('body').append(expenses.render().el);
   $('.js-handler--show-sidemenu').on('click', toggleSidemenu);
   $('.js-handler--change-currency').on('click', changeCurrency);
+  $('.js-handler--view-wallet').on('click', changeCurrency);
+
   window.expenses = new App.Views.Expenses({ collection: expenseCollection });
 
   function toggleSidemenu () {
