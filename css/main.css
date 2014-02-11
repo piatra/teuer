@@ -27,6 +27,14 @@ body {
   background: #333;
 }
 
+input[type=text],
+input[type=number],
+textarea {
+  padding: .3rem;
+  border: 1px solid #bbb;
+  border-radius: 3px;
+}
+
 .input--large {
   width: 100%;
   font-size: 2rem;
