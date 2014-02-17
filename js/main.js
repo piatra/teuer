@@ -34,7 +34,6 @@
 
     initialize: function(values) {
       this.on('invalid', function (model, error) {
-        console.log(error, model);
         return error;
       });
     },
@@ -143,6 +142,7 @@
       this.collection.add(expense);
       expense.save();
       $input.val('');
+      $('textarea').val('');
     },
 
   });
