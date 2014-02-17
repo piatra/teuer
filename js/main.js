@@ -190,22 +190,17 @@
 
   });
 
-  window.expenseCollection = new App.Collections.Expenses();
+  var expenseCollection = new App.Collections.Expenses();
   expenseCollection.fetch();
-
-  expenseCollection.dropboxDatastore.on('change:status', function(status, dropboxDatastore){
-    console.log('status changed');
-  });
 
   $(window).bind('beforeunload', function () {
     var currentStatus = expenseCollection.dropboxDatastore.getStatus();
     if (currentStatus === 'uploading') {
-      console.log('uploading');
       return 'You have pending changes that haven\'t been synchronized to the server.';
     }
   });
 
-  window.expenseForm = new App.Views.ExpenseForm({ collection: expenseCollection });
+  var expenseForm = new App.Views.ExpenseForm({ collection: expenseCollection });
   var settingsForm = new App.Views.SettingsForm({ collection: expenseCollection });
 
   //$('body').append(expenses.render().el);
@@ -213,7 +208,7 @@
   $('.js-handler--change-currency').on('click', changeCurrency);
   $('.js-handler--view-wallet').on('click', changeCurrency);
 
-  window.expenses = new App.Views.Expenses({ collection: expenseCollection });
+  var expenses = new App.Views.Expenses({ collection: expenseCollection });
 
   function toggleSidemenu () {
     $('.container').toggleClass('slide-right--half');
@@ -229,8 +224,5 @@
     $('#expense-settings').toggleClass('hidden');
     toggleSidemenu();
   }
-
-
-
 
 })();
