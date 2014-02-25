@@ -55,6 +55,7 @@
       this.collection.on('add', this.addOne, this);
       this.collection.on('remove', this.updateTotal, this);
       Backbone.pubSub.on('currencyUpdate', this.refreshList, this);
+      this.collection.on('sort', this.refreshList, this);
     },
 
     render: function() {
@@ -92,6 +93,11 @@
 
     initialize: function() {
       this.dropboxDatastore.syncCollection(this);
+    },
+
+    comparator: function(a) {
+      var val = -(new Date(a.get('date'))).getTime();
+      return val;
     }
   });
 
@@ -155,6 +161,7 @@
     initialize: function() {
       this.model.on('change', this.render, this);
       this.model.on('destroy', this.removeExpense, this);
+      this.model.on('sort reset', this.render, this);
     },
 
     events: {
@@ -191,6 +198,7 @@
   });
 
   var expenseCollection = new App.Collections.Expenses();
+  expenseCollection.add();
   expenseCollection.fetch();
 
   $(window).bind('beforeunload', function () {
@@ -203,7 +211,6 @@
   var expenseForm = new App.Views.ExpenseForm({ collection: expenseCollection });
   var settingsForm = new App.Views.SettingsForm({ collection: expenseCollection });
 
-  //$('body').append(expenses.render().el);
   $('.js-handler--show-sidemenu').on('click', toggleSidemenu);
   $('.js-handler--change-currency').on('click', changeCurrency);
   $('.js-handler--view-wallet').on('click', changeCurrency);
