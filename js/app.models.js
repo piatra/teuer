@@ -7,7 +7,7 @@ window.App = window.App || {};
 window.App.Models = {};
 window.App.options = {
   currency: localStorage.getItem('currency') || 'RON'
-}
+};
 
 window.App.Models.Expense = Backbone.Model.extend({
   defaults: {
@@ -15,7 +15,8 @@ window.App.Models.Expense = Backbone.Model.extend({
     comment: '',
     className: 'positive-expense',
     date: (new Date()).toISOString(),
-    currency: localStorage.getItem('currency') || 'RON'
+    currency: localStorage.getItem('currency') || 'RON',
+    archived: false
   },
 
   validate: function (attrs) {

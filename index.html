@@ -53,9 +53,16 @@
     </form>
   </div>
 
+  <div class="container smooth-transition hidden" id="expense-graph">
+      <h1>Expense</h1>
+      <p>Showing overall spendings and earnings</p>
+      <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+  </div>
+
   <div class="sidemenu smooth-transition">
     <ul>
       <li class="sidemenu-item"><a href="#" class="js-handler--view-wallet">My wallet</a></li>
+      <li class="sidemenu-item"><a href="#" class="js-handler--expense-graph">Graph</a></li>
       <li class="sidemenu-item"><a href="#" class="js-handler--change-currency">Change currency</a></li>
       <li class="sidemenu-item"><a href="https://github.com/piatra/teuer/blob/master/README.md">About</a></li>
     </ul>
@@ -65,8 +72,11 @@
     <strong><%= value %></strong>
     <input type="number" value="<%= value %>" required>
     <%= currency %>
-    <button class="done">done</button>
-    <button class="delete">delete</button>
+    <p class="expense-item--controls">
+        <button class="done">cancel</button>
+        <button class="delete danger">delete</button>
+        <button class="archive recommend">archive</button>
+    </p>
     <small class="timeago" title="<%= date %>"><%= date %></small>
     <span class="expense-item-comment"><%= comment %></span>
   </script>
@@ -76,6 +86,7 @@
   <script src="js/backbone-min.js"></script>
   <script src="js/backbone.dropboxDatastore.min.js"></script>
   <script src="https://www.dropbox.com/static/api/dropbox-datastores-1.0-latest.js"></script>
+  <script src="http://code.highcharts.com/highcharts.js"></script>
   <script src="js/jquery.timeago.js"></script>
   <script src="js/app.models.js"></script>
   <script src="js/app.routes.js"></script>

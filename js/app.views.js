@@ -27,28 +27,39 @@ window.App.Views.Expenses = Backbone.View.extend({
   render: function() {
     $('#loading').remove();
     this.collection.each(this.addOne, this);
+    // FIXME
+    $('.expense-value').text(this.expenseTotal/2);
+    this.expenseTotal /= 2;
     return this;
   },
 
-  updateTotal: function() {
-    this.expenseTotal = 0;
-    this.collection.each(function(expense) {
-      if (expense.get('className') == 'positive-expense') {
-        this.expenseTotal += parseInt(expense.get('value'), 10);
-      } else {
-        this.expenseTotal -= parseInt(expense.get('value'), 10);
-      }
-    }, this);
+  updateTotal: function(value) {
+    this.expenseTotal += value | 0;
     $('.expense-value').text(this.expenseTotal);
     $('.expense-currency').text(window.App.options.currency);
   },
 
   addOne: function(expense) {
+    if (expense.get('archived') || this.itemAge(expense) > 7) { // skip it
+        return;
+    }
+
     var expenseView = new window.App.Views.Expense({ model: expense });
     this.$el.append(expenseView.render().el);
     expenseView.$el.addClass(expense.get('className'));
-    $('.timeago').timeago();
-    this.updateTotal();
+    $('.timeago', expenseView.$el).timeago();
+    var value = expense.get('value');
+    if (expense.get('className') !== 'positive-expense') {
+      value = -value;
+    }
+    this.updateTotal(value);
+  },
+
+  itemAge: function checkItemAge(item) {
+    var date = (new Date(item.get('date'))).getTime();
+    var now = (new Date()).getTime();
+    var diff = now - date;
+    return diff / (60*60*24*1000);
   }
 
 });
@@ -101,7 +112,7 @@ window.App.Views.ExpenseForm = Backbone.View.extend({
     expense.save();
     $input.val('');
     $('textarea').val('');
-  },
+  }
 
 });
 
@@ -119,7 +130,8 @@ window.App.Views.Expense = Backbone.View.extend({
   events: {
     'click': 'editExpense',
     'click .done': 'doneEditing',
-    'click .delete': 'destroy'
+    'click .delete': 'destroy',
+    'click .archive': 'archive'
   },
 
   editExpense: function() {
@@ -139,6 +151,13 @@ window.App.Views.Expense = Backbone.View.extend({
 
   destroy: function() {
     this.model.destroy();
+  },
+
+  archive: function() {
+    this.model.set('archived', true);
+    this.model.save();
+    Backbone.pubSub.trigger('currencyUpdate');
+    return false;
   },
 
   render: function() {

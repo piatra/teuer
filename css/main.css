@@ -31,9 +31,10 @@ body {
 input[type=text],
 input[type=number],
 textarea {
-  padding: .3rem;
+  padding: .4rem;
   border: 1px solid #bbb;
   border-radius: 3px;
+  font-size: 2rem;
 }
 
 .input--large {
@@ -134,13 +135,16 @@ header ul {
   text-align: left;
 }
 
-.expense-item input,
-.expense-item button {
+.expense-item--controls,
+.expense-item input {
   display: none;
 }
 
-  .expense-item.editing input,
-  .expense-item.editing button {
+  .expense-item.editing .expense-item--controls {
+    display: block;
+  }
+
+  .expense-item.editing input {
     display: inline-block;
   }
 

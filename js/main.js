@@ -47,6 +47,7 @@
   $('.js-handler--show-sidemenu').on('click', toggleSidemenu);
   $('.js-handler--change-currency').on('click', changeCurrency);
   $('.js-handler--view-wallet').on('click', viewWallet);
+  $('.js-handler--expense-graph').on('click', viewGraph);
 
   function toggleSidemenu () {
     $('.container').toggleClass('slide-right--half');
@@ -64,6 +65,11 @@
 
   function changeCurrency () {
     App.Router.navigate('/currency', {trigger: true});
+    toggleSidemenu();
+  }
+
+  function viewGraph() {
+    App.Router.navigate('/graph', {trigger : true});
     toggleSidemenu();
   }
 
