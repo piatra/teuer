@@ -24,20 +24,17 @@
     });
 
     App.Router.on('route:wallet', function () {
+        $('.tab').addClass('hidden');
         $('#expense-wallet').removeClass('hidden');
-        $('#expense-settings').addClass('hidden');
-        $('#expense-graph').addClass('hidden');
     });
 
     App.Router.on('route:currency', function () {
-        $('#expense-wallet').addClass('hidden');
+        $('.tab').addClass('hidden');
         $('#expense-settings').removeClass('hidden');
-        $('#expense-settings').addClass('hidden');
     });
 
     App.Router.on('route:graph', function() {
-        $('#expense-wallet').addClass('hidden');
-        $('#expense-settings').addClass('hidden');
+        $('.tab').addClass('hidden');
         $('#expense-graph').removeClass('hidden');
     });
 

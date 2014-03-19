@@ -40,7 +40,7 @@ window.App.Views.Expenses = Backbone.View.extend({
   },
 
   addOne: function(expense) {
-    if (expense.get('archived') || itemAge(expense) > 7) { // skip it
+    if (expense.get('archived') || expense.itemAge() > 7) { // skip it
         return;
     }
 
@@ -58,12 +58,6 @@ window.App.Views.Expenses = Backbone.View.extend({
 
 });
 
-  function itemAge(item) {
-    var date = (new Date(item.get('date'))).getTime();
-    var now = (new Date()).getTime();
-    var diff = now - date;
-    return diff / (60*60*24*1000);
-  }
 
 window.App.Views.SettingsForm = Backbone.View.extend({
   el: $('#currency-selector'),
@@ -222,11 +216,9 @@ window.App.Views.PieGraph = Backbone.View.extend({
     },
 
     filterExpenses: function(expense) {
-        
-        if (itemAge(expense) < 7 && expense.get('className') !== 'positive-expense') {
+        if (expense.itemAge() < 7 && expense.get('className') !== 'positive-expense') {
             this.data.push([expense.get('comment'), expense.get('value')]);
         }
-    
     }
 });
 

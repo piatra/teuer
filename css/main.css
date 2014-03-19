@@ -121,7 +121,7 @@ header ul {
 
 .container {
   width: 100%;
-  margin: 0 auto;
+  margin: -18px auto;
   background: #f4f4f4;
   min-height: 100%;
   text-align: center;

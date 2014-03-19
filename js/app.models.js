@@ -31,6 +31,13 @@ window.App.Models.Expense = Backbone.Model.extend({
     });
   },
 
+  itemAge: function itemAge() {
+      var date = (new Date(this.get('date'))).getTime();
+      var now = (new Date()).getTime();
+      var diff = now - date;
+      return diff / (60*60*24*1000);
+  }
+
 });
 
 })();

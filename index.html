@@ -13,15 +13,7 @@
 
   <section role="region">
     <header>
-      <!-- Icon that will indicate whether you are online or offline - enabled if you are using offline/appcache (see above) -->
-      <!--<div id="online-status" title="Online"></div>-->
-      <!--<menu type="toolbar">-->
-        <!--<button id="install"><span class="icon icon-add">add</span></button>-->
-      <!--</menu>-->
       <div class="icon icon-menu js-handler--show-sidemenu"></div>
-      <!--<h1>-->
-        <!--Teuer-->
-      <!--</h1>-->
       <span class="expense-total">
         <span class="expense-value">0</span>
         <span class="expense-currency">RON</span>
@@ -29,8 +21,22 @@
     </header>
   </section>
 
+  <div class="container tab" id="splash">
+    <div>
+      <h1>Loading...</h1>
+      <div class="placeholder light">
+        <div class="spinner"></div>
+      </div>
+    </div>
+  </div>
 
-  <div class="container smooth-transition" id="expense-wallet">
+  <div class="container smooth-transition tab hidden" id="login-screen">
+      <br>
+      <h1>Teuer. Keep track of your expenses.</h1>
+      <button class="recommend js-handler--login">Sign in with your email</button>
+  </div>
+
+  <div class="container smooth-transition hidden tab" id="expense-wallet">
     <form id="expense-form" action="">
       <input type="number" name="expense-value" class="input--large" id="expense-value" required>
       <textarea name="expense-description" id= rows="8" cols="40" class="full-width" placeholder="Optional expense description"></textarea>
@@ -46,7 +52,7 @@
     <ul class="expenses-list">
     </ul>
   </div>
-  <div class="container smooth-transition hidden" id="expense-settings">
+  <div class="container smooth-transition hidden tab" id="expense-settings">
     <form id="currency-selector">
       <input type="text" name="currency-name" class="input--large" id="currency-name">
       <button type="submit" class="button--full-wide">Set currency</button>
@@ -82,8 +88,10 @@
   <script src="js/underscore-min.js"></script>
   <script src="js/jquery-2.1.0.min.js"></script>
   <script src="js/backbone-min.js"></script>
-  <script src="js/backbone.dropboxDatastore.min.js"></script>
-  <script src="js/dropbox-datastores-1.0-latest.js"></script>
+  <script src="https://cdn.firebase.com/v0/firebase.js"></script>
+  <script src="https://cdn.firebase.com/libs/backfire/0.3.0/backbone-firebase.min.js"></script>
+  <script src="https://cdn.firebase.com/js/simple-login/1.3.0/firebase-simple-login.js"></script>
+  <script src="https://login.persona.org/include.js"></script>
   <script src="js/highcharts.js"></script>
   <script src="js/jquery.timeago.js"></script>
   <script src="js/app.models.js"></script>

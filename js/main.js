@@ -1,50 +1,75 @@
 (function() {
   'use strict';
 
-  var client = new Dropbox.Client({key: 'gzlqmsuqsyk0dvt'});
-  client.authenticate({ interactive: false });
-  if (!client.isAuthenticated()) client.authenticate();
-  Backbone.DropboxDatastore.client = client;
-
   window.App.Collections = {};
 
   var App = window.App;
+  App.AUTH = false;
+  App.FirebaseURL = "https://vivid-fire-3778.firebaseio.com";
+
+  var chatRef = new Firebase(App.FirebaseURL);
+  window.auth = new FirebaseSimpleLogin(chatRef, function(error, user) {
+      if (error) {
+          // an error occurred while attempting login
+          console.log(error);
+      } else if (user) {
+          // user authenticated with Firebase
+          console.log('User ID: ' + user.id + ', Provider: ' + user.provider);
+          console.log(user);
+          App.AUTH = {
+            user: user.id,
+            uid: user.uid
+          };
+          initApp();
+      } else {
+          // user is logged out
+          console.log('Logged out');
+          $('.tab').addClass('hidden');
+          $('#login-screen').removeClass('hidden');
+      }
+  });
 
   Backbone.pubSub = _.extend({}, Backbone.Events);
 
-  App.Collections.Expenses = Backbone.Collection.extend({
-    model: App.Models.Expense,
+  function initApp() {
+      App.Collections.Expenses = Backbone.Collection.extend({
+        model: App.Models.Expense,
 
-    dropboxDatastore: new Backbone.DropboxDatastore('teuer'),
+        firebase: new Backbone.Firebase(App.FirebaseURL + '/user/' + App.AUTH.uid),
 
-    initialize: function() {
-      this.dropboxDatastore.syncCollection(this);
-    },
+        comparator: function(a) {
+          var val = -(new Date(a.get('date'))).getTime();
+          return val;
+        },
 
-    comparator: function(a) {
-      var val = -(new Date(a.get('date'))).getTime();
-      return val;
-    }
-  });
+        ageFilter: function oldItems(age) {
+            return this.filter(function(exp) { return exp.itemAge() > 7; });
+        },
 
-  var expenseCollection = new App.Collections.Expenses();
-  expenseCollection.fetch();
+        recentExpenses: function() {
+            return this.without.apply(this, this.ageFilter());
+        }
+      });
+      window.expenseCollection = new App.Collections.Expenses();
+      var expenseForm = new App.Views.ExpenseForm({ collection: expenseCollection });
+      var settingsForm = new App.Views.SettingsForm({ collection: expenseCollection });
+      var expenses = new App.Views.Expenses({ collection: expenseCollection });
 
-  $(window).bind('beforeunload', function () {
-    var currentStatus = expenseCollection.dropboxDatastore.getStatus();
-    if (currentStatus === 'uploading') {
-      return 'You have pending changes that haven\'t been synchronized to the server.';
-    }
-  });
+      $('.js-handler--show-sidemenu').on('click', toggleSidemenu);
+      $('.js-handler--change-currency').on('click', changeCurrency);
+      $('.js-handler--view-wallet').on('click', viewWallet);
+      $('.js-handler--expense-graph').on('click', viewGraph);
+      $('.js-handler--login').on('click', function() {
+        auth.login('persona');
+      });
 
-  var expenseForm = new App.Views.ExpenseForm({ collection: expenseCollection });
-  var settingsForm = new App.Views.SettingsForm({ collection: expenseCollection });
-  var expenses = new App.Views.Expenses({ collection: expenseCollection });
+      $('.tab').addClass('hidden');
+      $('#expense-wallet').removeClass('hidden');
 
-  $('.js-handler--show-sidemenu').on('click', toggleSidemenu);
-  $('.js-handler--change-currency').on('click', changeCurrency);
-  $('.js-handler--view-wallet').on('click', viewWallet);
-  $('.js-handler--expense-graph').on('click', viewGraph);
+      setTimeout(function(){
+        expenseCollection.fetch();
+      }, 2000);
+  }
 
   function toggleSidemenu () {
     $('.container').toggleClass('slide-right--half');
