@@ -5,7 +5,7 @@ section[role="region"] > header:first-child {
   position: relative;
   z-index: 10;
   padding: 0;
-  height: 5rem;
+  height: 4rem;
   color: #fff;
   background: url(../images/headers/ui/header.png) repeat-x 0 0;
   background-size: auto 100%;
@@ -172,7 +172,7 @@ section[role="region"] > header:first-child .icon {
   font-size: 0;
   overflow: hidden;
   position: relative;
-  height: 4.9rem;
+  height: 4rem;
 }
 
 section[role="region"] > header:first-child .icon.icon-add {

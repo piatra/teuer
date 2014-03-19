@@ -64,11 +64,10 @@ header ul {
 }
 
 .expense-total {
-  font-size: 2.5rem;
+  font-size: 1.5rem;
   float: right;
   vertical-align: middle;
-  height: 4.5rem;
-  line-height: 4.5rem;
+  line-height: 4rem;
 }
 
 .expenses-list {
@@ -217,3 +216,19 @@ header ul {
   50% {transform: rotate(180deg);}
   100% {transform: rotate(360deg);}
 }*/
+
+.login-modal {
+    background: rgba(255,255,255,.6);
+    padding: 2rem;
+    width: 80%;
+    margin: 0 auto;
+}
+
+.login-bg {
+    height: 100%;
+    width: 100%;
+    background-image: url('../images/login.JPG');
+    background-size: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+}

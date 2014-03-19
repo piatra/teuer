@@ -29,6 +29,8 @@
       }
   });
 
+  var expenseCollection;
+
   Backbone.pubSub = _.extend({}, Backbone.Events);
 
   function initApp() {
@@ -50,18 +52,10 @@
             return this.without.apply(this, this.ageFilter());
         }
       });
-      window.expenseCollection = new App.Collections.Expenses();
+      expenseCollection = new App.Collections.Expenses();
       var expenseForm = new App.Views.ExpenseForm({ collection: expenseCollection });
       var settingsForm = new App.Views.SettingsForm({ collection: expenseCollection });
       var expenses = new App.Views.Expenses({ collection: expenseCollection });
-
-      $('.js-handler--show-sidemenu').on('click', toggleSidemenu);
-      $('.js-handler--change-currency').on('click', changeCurrency);
-      $('.js-handler--view-wallet').on('click', viewWallet);
-      $('.js-handler--expense-graph').on('click', viewGraph);
-      $('.js-handler--login').on('click', function() {
-        auth.login('persona');
-      });
 
       $('.tab').addClass('hidden');
       $('#expense-wallet').removeClass('hidden');
@@ -70,6 +64,14 @@
         expenseCollection.fetch();
       }, 2000);
   }
+
+  $('.js-handler--show-sidemenu').on('click', toggleSidemenu);
+  $('.js-handler--change-currency').on('click', changeCurrency);
+  $('.js-handler--view-wallet').on('click', viewWallet);
+  $('.js-handler--expense-graph').on('click', viewGraph);
+  $('.js-handler--login').on('click', function() {
+    auth.login('persona');
+  });
 
   function toggleSidemenu () {
     $('.container').toggleClass('slide-right--half');
