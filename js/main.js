@@ -1,10 +1,10 @@
 (function() {
   'use strict';
 
-  //var client = new Dropbox.Client({key: 'gzlqmsuqsyk0dvt'});
-  //client.authenticate({ interactive: false });
-  //if (!client.isAuthenticated()) client.authenticate();
-  //Backbone.DropboxDatastore.client = client;
+  var client = new Dropbox.Client({key: 'gzlqmsuqsyk0dvt'});
+  client.authenticate({ interactive: false });
+  if (!client.isAuthenticated()) client.authenticate();
+  Backbone.DropboxDatastore.client = client;
 
   window.App.Collections = {};
 
@@ -27,10 +27,8 @@
     }
   });
 
-  //App.Router = new App.Routes();
-
   var expenseCollection = new App.Collections.Expenses();
-  //expenseCollection.fetch();
+  expenseCollection.fetch();
 
   $(window).bind('beforeunload', function () {
     var currentStatus = expenseCollection.dropboxDatastore.getStatus();
@@ -58,20 +56,17 @@
   }
 
   function viewWallet() {
-    //App.Router.navigate('/wallet', {trigger: true});
-    location.hash = '/wallet';
+    App.Router.navigate('/wallet', {trigger: true});
     toggleSidemenu();
   }
 
   function changeCurrency () {
-    //App.Router.navigate('/currency', {trigger: true});
-    location.hash = '/currency';
+    App.Router.navigate('/currency', {trigger: true});
     toggleSidemenu();
   }
 
   function viewGraph() {
     App.Router.navigate('/graph', {trigger : true});
-    //location.hash = '/graph';
     toggleSidemenu();
     var pieGraph = new App.Views.PieGraph({collection: expenseCollection});
   }

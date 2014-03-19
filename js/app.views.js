@@ -40,7 +40,7 @@ window.App.Views.Expenses = Backbone.View.extend({
   },
 
   addOne: function(expense) {
-    if (expense.get('archived') || this.itemAge(expense) > 7) { // skip it
+    if (expense.get('archived') || itemAge(expense) > 7) { // skip it
         return;
     }
 
@@ -55,14 +55,15 @@ window.App.Views.Expenses = Backbone.View.extend({
     this.updateTotal(value);
   },
 
-  itemAge: function checkItemAge(item) {
+
+});
+
+  function itemAge(item) {
     var date = (new Date(item.get('date'))).getTime();
     var now = (new Date()).getTime();
     var diff = now - date;
     return diff / (60*60*24*1000);
   }
-
-});
 
 window.App.Views.SettingsForm = Backbone.View.extend({
   el: $('#currency-selector'),
@@ -171,8 +172,25 @@ window.App.Views.Expense = Backbone.View.extend({
 window.App.Views.PieGraph = Backbone.View.extend({
     el: $('#pie-graph'),
 
+    data: [],
+
+    totalExpense: 0,
+
     initialize: function () {
-        console.log(this.collection);
+        this.data = [];
+        this.collection.each(this.filterExpenses, this);
+        var sum = this.data.reduce(function(a, b) {
+            a += b[1] | 0;
+            return a;
+        }, 0);
+        this.data = this.data.map(function(e) {
+            var value = e[1] | 0;
+            e[1] = (value * 100) / sum;
+            return e;
+        });
+
+        var chart = this;
+
         this.$el.highcharts({
             chart: {
                 plotBackgroundColor: null,
@@ -198,16 +216,17 @@ window.App.Views.PieGraph = Backbone.View.extend({
         series: [{
             type: 'pie',
             name: 'Browser share',
-            data: [
-                ['Firefox',   45.0],
-            ['IE',       26.8],
-            ['Chrome', 12.8],
-            ['Safari',    8.5],
-            ['Opera',     6.2],
-            ['Others',   0.7]
-                ]
+            data: chart.data
         }]
         });
+    },
+
+    filterExpenses: function(expense) {
+        
+        if (itemAge(expense) < 7 && expense.get('className') !== 'positive-expense') {
+            this.data.push([expense.get('comment'), expense.get('value')]);
+        }
+    
     }
 });
 
