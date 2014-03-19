@@ -168,5 +168,48 @@ window.App.Views.Expense = Backbone.View.extend({
 
 });
 
+window.App.Views.PieGraph = Backbone.View.extend({
+    el: $('#pie-graph'),
+
+    initialize: function () {
+        console.log(this.collection);
+        this.$el.highcharts({
+            chart: {
+                plotBackgroundColor: null,
+        plotBorderWidth: null,
+        plotShadow: false
+            },
+        title: {
+            text: 'Weekly expenses'
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+        cursor: 'pointer',
+        dataLabels: {
+            enabled: false
+        },
+        showInLegend: true
+            }
+        },
+        series: [{
+            type: 'pie',
+            name: 'Browser share',
+            data: [
+                ['Firefox',   45.0],
+            ['IE',       26.8],
+            ['Chrome', 12.8],
+            ['Safari',    8.5],
+            ['Opera',     6.2],
+            ['Others',   0.7]
+                ]
+        }]
+        });
+    }
+});
+
 
 })();

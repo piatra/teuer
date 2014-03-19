@@ -7,32 +7,41 @@
     window.App.Routes = Backbone.Router.extend({
 
         routes: {
-            ''        : 'index',
-        'wallet'  : 'wallet',
+        '/'        : 'index',
+        'wallet'   : 'wallet',
         'currency': 'currency',
         'graph'   : 'graph'
         },
 
-        index: function() {
-        },
-
-        wallet: function () {
-            $('#expense-wallet').toggleClass('hidden');
-            $('#expense-settings').toggleClass('hidden');
-        },
-
-        currency: function () {
-            $('#expense-wallet').toggleClass('hidden');
-            $('#expense-settings').toggleClass('hidden');
-        },
-
-        graph: function() {
-            $('#expense-wallet').hide();
-            $('#expense-settings').hide();
-            $('#expense-graph').removeClass('hidden');
-        }
 
 
     });
+
+    App.Router = new App.Routes();
+
+    App.Router.on('route:index', function() {
+        console.log('index');
+    });
+
+    App.Router.on('route:wallet', function () {
+        $('#expense-wallet').removeClass('hidden');
+        $('#expense-settings').addClass('hidden');
+        $('#expense-graph').addClass('hidden');
+    });
+
+    App.Router.on('route:currency', function () {
+        $('#expense-wallet').addClass('hidden');
+        $('#expense-settings').removeClass('hidden');
+        $('#expense-settings').addClass('hidden');
+    });
+
+    App.Router.on('route:graph', function() {
+        $('#expense-wallet').addClass('hidden');
+        $('#expense-settings').addClass('hidden');
+        $('#expense-graph').removeClass('hidden');
+    });
+
+
+  Backbone.history.start();
 
 })();
