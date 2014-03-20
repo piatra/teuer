@@ -59,10 +59,11 @@
 
       $('.tab').addClass('hidden');
       $('#expense-wallet').removeClass('hidden');
+      $('.expense-total').removeClass('hidden');
 
       setTimeout(function(){
         expenseCollection.fetch();
-      }, 2000);
+      }, 1000);
   }
 
   $('.js-handler--show-sidemenu').on('click', toggleSidemenu);

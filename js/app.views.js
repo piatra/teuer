@@ -186,6 +186,8 @@ window.App.Views.PieGraph = Backbone.View.extend({
             return e;
         });
 
+
+
         var chart = this;
 
         this.$el.highcharts({
@@ -213,9 +215,28 @@ window.App.Views.PieGraph = Backbone.View.extend({
         series: [{
             type: 'pie',
             name: 'Percentage',
-            data: chart.data
+            data: chart.groupExpenses()
         }]
         });
+    },
+
+    groupExpenses: function() {
+        var myset = {};
+
+        this.data.forEach(function (el) {
+            var key = el[0];
+            if (myset[key]) {
+                myset[key] += el[1];
+            } else {
+                myset[key] = el[1];
+            }
+        });
+
+        var d = Object.keys(myset).map(function(k) {
+            return [k, myset[k]];
+        });
+        console.log(d);
+        return d;
     },
 
     filterExpenses: function(expense) {

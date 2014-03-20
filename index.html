@@ -14,7 +14,7 @@
   <section role="region">
     <header>
       <div class="icon icon-menu js-handler--show-sidemenu"></div>
-      <span class="expense-total">
+      <span class="expense-total hidden">
         <span class="expense-value">0</span>
         <span class="expense-currency">RON</span>
       </span>
@@ -38,7 +38,7 @@
 
   <div class="container smooth-transition hidden tab" id="expense-wallet">
     <form id="expense-form" action="">
-      <input type="number" name="expense-value" class="input--large" id="expense-value" required>
+      <input type="number" name="expense-value" class="input--large" id="expense-value" placeholder="10" required>
       <textarea name="expense-description" id= rows="8" cols="40" class="full-width" placeholder="Optional expense description"></textarea>
       <button type="submit" id="income-add" class="expense-button--income button--half-wide">Add income</button>
       <button type="submit" id="expense-add" class="expense-button--expense button--half-wide">Add expense</button>
