@@ -178,6 +178,9 @@ window.App.Views.PieGraph = Backbone.View.extend({
             return a;
         }, 0);
         this.data = this.data.map(function(e) {
+            if (!e[0]) {
+                e[0] = 'no description'
+            }
             var value = e[1] | 0;
             e[1] = (value * 100) / sum;
             return e;
@@ -200,16 +203,16 @@ window.App.Views.PieGraph = Backbone.View.extend({
         plotOptions: {
             pie: {
                 allowPointSelect: true,
-        cursor: 'pointer',
-        dataLabels: {
-            enabled: false
-        },
-        showInLegend: true
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: false
+                },
+                showInLegend: true
             }
         },
         series: [{
             type: 'pie',
-            name: 'Browser share',
+            name: 'Percentage',
             data: chart.data
         }]
         });

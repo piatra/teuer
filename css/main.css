@@ -14,7 +14,7 @@
 
 .sidemenu-item a {
   color: #f4f4f4;
-  font-size: 2.5rem;
+  font-size: 1.5rem;
   text-decoration: none;
 }
 
@@ -34,7 +34,7 @@ textarea {
   padding: .4rem;
   border: 1px solid #bbb;
   border-radius: 3px;
-  font-size: 2rem;
+  font-size: 1rem;
 }
 
 .input--large {
@@ -49,10 +49,17 @@ small {
 }
 
 form {
-  width: 70%;
+  width: 85%;
   margin: 0 auto;
   text-align:center;
+  font-size: 1.5rem;
 }
+
+    form button {
+        font-size: 1rem;
+        height: 3rem;
+        line-height: 3rem;
+    }
 
 header h1 {
   display: inline-block !important;
@@ -85,7 +92,7 @@ header ul {
 }
 
 .button--half-wide {
-  width: 49%;
+  width: 48%;
 }
 
 .smooth-transition {
@@ -120,16 +127,17 @@ header ul {
 
 .container {
   width: 100%;
-  margin: -18px auto;
+  margin: 0 auto;
   background: #f4f4f4;
   min-height: 100%;
   text-align: center;
+  padding-top: 2rem;
 }
 
 .expense-item {
   padding: .5rem;
   list-style: none;
-  font-size: 2.5rem;
+  font-size: 1.5rem;
   border-bottom: 1px solid #ddd;
   text-align: left;
 }
@@ -155,9 +163,9 @@ header ul {
   text-overflow: ellipsis;
   overflow: hidden;
   display: inline-block;
-  height: 2rem;
+  height: 1rem;
   white-space: nowrap;
-  font-size: 1.5rem;
+  font-size: 1rem;
   max-width: 10rem;
   color: #aaa;
 }

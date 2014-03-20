@@ -23,7 +23,6 @@
 
   <div class="container tab" id="splash">
     <div>
-      <h1>Loading...</h1>
       <div class="placeholder light">
         <div class="spinner"></div>
       </div>
@@ -45,7 +44,6 @@
       <button type="submit" id="expense-add" class="expense-button--expense button--half-wide">Add expense</button>
     </form>
     <div id="loading">
-      <h1>Loading...</h1>
       <div class="placeholder light">
         <div class="spinner"></div>
       </div>
@@ -55,12 +53,12 @@
   </div>
   <div class="container smooth-transition hidden tab" id="expense-settings">
     <form id="currency-selector">
-      <input type="text" name="currency-name" class="input--large" id="currency-name">
+      <input type="text" name="currency-name" class="input--large" id="currency-name" placeholder="10">
       <button type="submit" class="button--full-wide">Set currency</button>
     </form>
   </div>
 
-  <div class="container smooth-transition hidden" id="expense-graph">
+  <div class="container smooth-transition hidden tab" id="expense-graph">
       <div id="pie-graph" style="width: 100%; height: 600px; margin: 0 auto"></div>
   </div>
 

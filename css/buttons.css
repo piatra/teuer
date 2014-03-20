@@ -10,9 +10,9 @@ button::-moz-focus-inner {
 
 button,
 a[role="button"] {
-  height: 3.8rem;
+  height: 2rem;
   margin: 0 0 1rem;
-  padding: 0 1.5rem;
+  padding: 0 1rem;
   -moz-box-sizing: border-box;
   display: inline-block;
   vertical-align: middle;
@@ -22,7 +22,7 @@ a[role="button"] {
   background: #fafafa url(../images/buttons/ui/default.png) repeat-x left bottom;
   border: 0.1rem solid #9f9f9f;
   border-radius: 0.3rem;
-  font: 400 1.6rem/3.8rem 'MozTT', Sans-serif;
+  font: 400 1rem/1.5rem 'MozTT', Sans-serif;
   color: #333;
   text-align: center;
   text-shadow: 0.1rem 0.1rem 0 rgba(255,255,255,0.3);
