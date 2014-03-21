@@ -56,6 +56,7 @@
       var expenseForm = new App.Views.ExpenseForm({ collection: expenseCollection });
       var settingsForm = new App.Views.SettingsForm({ collection: expenseCollection });
       var expenses = new App.Views.Expenses({ collection: expenseCollection });
+      var currenciesSelector = new App.Views.CurencySelector();
 
       $('.tab').addClass('hidden');
       $('#expense-wallet').removeClass('hidden');

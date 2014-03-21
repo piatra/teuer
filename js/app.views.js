@@ -68,7 +68,7 @@ window.App.Views.SettingsForm = Backbone.View.extend({
 
   currencyUpdate: function(e) {
     e.preventDefault();
-    window.App.options.currency = $('input', this.$el).val();
+    window.App.options.currency = $('select', this.$el).val().split(' ').pop();
     localStorage.setItem('currency', window.App.options.currency);
     this.collection.each(this.updateItem, this);
     Backbone.pubSub.trigger('currencyUpdate');
@@ -160,6 +160,32 @@ window.App.Views.Expense = Backbone.View.extend({
     this.$el.html(template(this.model.toJSON()));
     return this;
   }
+
+});
+
+window.App.Views.CurencySelector = Backbone.View.extend({
+    el: $('#currency-name'),
+    data: [],
+    initialize: function() {
+        var currencySelector = this;
+        $.getJSON('/js/currencies.json').success(function(data) {
+            currencySelector.data = data;
+        }).done(function() {
+            currencySelector.initSelector();
+        });
+    },
+
+    initSelector: function() {
+        console.log('init');
+        console.log(this.data);
+        this.data.forEach(this.appendOption, this);
+    },
+
+    appendOption: function(el) {
+        var $opt = $('<option/>').val(el.name + ' ' + el.cc)
+            .text(el.name + ' ' + el.cc);
+        this.$el.append($opt);
+    }
 
 });
 
