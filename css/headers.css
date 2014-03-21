@@ -4,7 +4,7 @@
 section[role="region"] > header:first-child {
   position: relative;
   z-index: 10;
-  padding: 0;
+  padding: 0 .5rem;
   height: 4rem;
   color: #fff;
   background: url(../images/headers/ui/header.png) repeat-x 0 0;
