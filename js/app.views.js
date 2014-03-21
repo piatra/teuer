@@ -25,7 +25,6 @@ window.App.Views.Expenses = Backbone.View.extend({
   },
 
   render: function() {
-    $('#loading').remove();
     this.collection.each(this.addOne, this);
     // FIXME
     $('.expense-value').text(this.expenseTotal/2);
@@ -53,8 +52,7 @@ window.App.Views.Expenses = Backbone.View.extend({
       value = -value;
     }
     this.updateTotal(value);
-  },
-
+  }
 
 });
 
@@ -176,8 +174,6 @@ window.App.Views.CurencySelector = Backbone.View.extend({
     },
 
     initSelector: function() {
-        console.log('init');
-        console.log(this.data);
         this.data.forEach(this.appendOption, this);
     },
 
@@ -261,7 +257,6 @@ window.App.Views.PieGraph = Backbone.View.extend({
         var d = Object.keys(myset).map(function(k) {
             return [k, myset[k]];
         });
-        console.log(d);
         return d;
     },
 

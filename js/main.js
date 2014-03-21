@@ -63,6 +63,7 @@
       $('.expense-total').removeClass('hidden');
 
       setTimeout(function(){
+        $('#loading').remove();
         expenseCollection.fetch();
       }, 1000);
   }
@@ -71,9 +72,15 @@
   $('.js-handler--change-currency').on('click', changeCurrency);
   $('.js-handler--view-wallet').on('click', viewWallet);
   $('.js-handler--expense-graph').on('click', viewGraph);
+  $('.js-handler--logout').on('click', logout);
   $('.js-handler--login').on('click', function() {
     auth.login('persona');
   });
+
+  function logout() {
+      auth.logout();
+      location.href = location.origin;
+  }
 
   function toggleSidemenu () {
     $('.container').toggleClass('slide-right--half');
