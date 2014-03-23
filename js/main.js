@@ -71,6 +71,7 @@
   $('.js-handler--change-currency').on('click', changeCurrency);
   $('.js-handler--view-wallet').on('click', viewWallet);
   $('.js-handler--expense-graph').on('click', viewGraph);
+  $('.js-handler--view-report').on('click', viewReport);
   $('.js-handler--logout').on('click', logout);
   $('.js-handler--login').on('click', function() {
     auth.login('persona');
@@ -92,6 +93,11 @@
 
   function viewWallet() {
     App.Router.navigate('/wallet', {trigger: true});
+    toggleSidemenu();
+  }
+
+  function viewReport() {
+    App.Router.navigate('/report', {trigger: true});
     toggleSidemenu();
   }
 

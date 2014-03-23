@@ -10,7 +10,8 @@
         '/'        : 'index',
         'wallet'   : 'wallet',
         'currency': 'currency',
-        'graph'   : 'graph'
+        'graph'   : 'graph',
+        'report'  : 'report'
         },
 
 
@@ -36,6 +37,11 @@
     App.Router.on('route:graph', function() {
         $('.tab').addClass('hidden');
         $('#expense-graph').removeClass('hidden');
+    });
+
+    App.Router.on('route:report', function() {
+        $('.tab').addClass('hidden');
+        $('#expense-report').removeClass('hidden');
     });
 
 
