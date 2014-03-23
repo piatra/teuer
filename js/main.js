@@ -1,3 +1,5 @@
+/*globals Firebase, FirebaseSimpleLogin, console, $, Backbone, _*/
+
 (function() {
   'use strict';
 
@@ -5,33 +7,30 @@
 
   var App = window.App;
   App.AUTH = false;
-  App.FirebaseURL = "https://vivid-fire-3778.firebaseio.com";
+  App.FirebaseURL = 'https://vivid-fire-3778.firebaseio.com';
 
   var chatRef = new Firebase(App.FirebaseURL);
-  window.auth = new FirebaseSimpleLogin(chatRef, function(error, user) {
+  var auth = new FirebaseSimpleLogin(chatRef, loginHandler);
+
+  var expenseCollection;
+  window.auth = auth;
+
+  Backbone.pubSub = _.extend({}, Backbone.Events);
+
+  function loginHandler (error, user) {
       if (error) {
-          // an error occurred while attempting login
           console.log(error);
       } else if (user) {
-          // user authenticated with Firebase
-          console.log('User ID: ' + user.id + ', Provider: ' + user.provider);
-          console.log(user);
           App.AUTH = {
             user: user.id,
             uid: user.uid
           };
           initApp();
       } else {
-          // user is logged out
-          console.log('Logged out');
           $('.tab').addClass('hidden');
           $('#login-screen').removeClass('hidden');
       }
-  });
-
-  var expenseCollection;
-
-  Backbone.pubSub = _.extend({}, Backbone.Events);
+  }
 
   function initApp() {
       App.Collections.Expenses = Backbone.Collection.extend({
@@ -44,7 +43,7 @@
           return val;
         },
 
-        ageFilter: function oldItems(age) {
+        ageFilter: function oldItems() {
             return this.filter(function(exp) { return exp.itemAge() > 7; });
         },
 
@@ -53,10 +52,10 @@
         }
       });
       expenseCollection = new App.Collections.Expenses();
-      var expenseForm = new App.Views.ExpenseForm({ collection: expenseCollection });
-      var settingsForm = new App.Views.SettingsForm({ collection: expenseCollection });
-      var expenses = new App.Views.Expenses({ collection: expenseCollection });
-      var currenciesSelector = new App.Views.CurencySelector();
+      new App.Views.ExpenseForm({ collection: expenseCollection });
+      new App.Views.SettingsForm({ collection: expenseCollection });
+      new App.Views.Expenses({ collection: expenseCollection });
+      new App.Views.CurencySelector();
 
       $('.tab').addClass('hidden');
       $('#expense-wallet').removeClass('hidden');
@@ -104,7 +103,7 @@
   function viewGraph() {
     App.Router.navigate('/graph', {trigger : true});
     toggleSidemenu();
-    var pieGraph = new App.Views.PieGraph({collection: expenseCollection});
+    new App.Views.PieGraph({collection: expenseCollection});
   }
 
 })();
